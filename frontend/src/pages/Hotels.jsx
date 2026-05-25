@@ -14,16 +14,6 @@ const Hotels = () => {
   const [checkIn, setCheckIn] = useState(searchParams.get('checkIn') || '');
   const [checkOut, setCheckOut] = useState(searchParams.get('checkOut') || '');
 
-  // Keep local state in sync with URL search params (so navigating updates filters)
-  useEffect(() => {
-    const loc = searchParams.get('location') || '';
-    const ci = searchParams.get('checkIn') || '';
-    const co = searchParams.get('checkOut') || '';
-    setSearchQuery(loc);
-    setCheckIn(ci);
-    setCheckOut(co);
-  }, [searchParams]);
-
   useEffect(() => {
     const loadHotels = async () => {
       setLoading(true);
@@ -43,13 +33,6 @@ const Hotels = () => {
 
   const handleFilterSubmit = (e) => {
     e.preventDefault();
-    // Update the URL with selected filters so the location toggle persists
-    const params = new URLSearchParams();
-    if (searchQuery) params.append('location', searchQuery);
-    if (checkIn) params.append('checkIn', checkIn);
-    if (checkOut) params.append('checkOut', checkOut);
-    const q = params.toString();
-    navigate(q ? `/hotels?${q}` : '/hotels');
   };
 
   const handleViewRooms = (hotelId) => {
@@ -146,7 +129,7 @@ const Hotels = () => {
               <div className="glass-card p-12 rounded-2xl text-center border border-slate-200 bg-white">
                 <p className="text-slate-500 text-lg">No hotels found in the selected location.</p>
                 <button
-                  onClick={() => { setSearchQuery(''); setCheckIn(''); setCheckOut(''); navigate('/hotels'); }}
+                  onClick={() => setSearchQuery('')}
                   className="mt-4 px-6 py-2.5 bg-slate-50 hover:bg-orange-500/10 border border-slate-200 hover:border-orange-500 text-orange-600 rounded-xl text-sm font-bold transition-all cursor-pointer"
                 >
                   Clear Filters

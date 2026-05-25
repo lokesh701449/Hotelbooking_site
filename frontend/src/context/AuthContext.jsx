@@ -41,17 +41,7 @@ export const AuthProvider = ({ children }) => {
       return data;
     } catch (err) {
       setLoading(false);
-      let msg = 'Registration failed. Try again.';
-      if (err.response && err.response.data) {
-        const d = err.response.data;
-        if (d.errors && typeof d.errors === 'object') {
-          msg = Object.values(d.errors).join(' | ');
-        } else if (d.message) {
-          msg = d.message;
-        }
-      } else if (err.message) {
-        msg = err.message;
-      }
+      const msg = err.response?.data?.message || 'Registration failed. Try again.';
       setError(msg);
       throw new Error(msg);
     }

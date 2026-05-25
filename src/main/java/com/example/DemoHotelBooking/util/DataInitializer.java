@@ -131,7 +131,25 @@ public class DataInitializer implements CommandLineRunner {
                     .description("Enclosed by palm trees and crystalline waters, this Hawaiian paradise offers private beachside cabanas, surf lessons, and authentic Polynesian luaus.")
                     .build();
 
-            hotelRepository.saveAll(Arrays.asList(hotel1, hotel2, hotel3, hotel4));
+            Hotel hotel5 = Hotel.builder()
+                    .hotelName("Celestial Crown Hotel")
+                    .location("Chicago, IL")
+                    .description("Step into timeless elegance at our heritage-inspired retreat featuring royal suites, rooftop candlelight dining, a luxury spa, and breathtaking city skyline views.")
+                    .build();
+
+            Hotel hotel6 = Hotel.builder()
+                    .hotelName("Silver Oak Vineyard Resort")
+                    .location("Napa Valley, CA")
+                    .description("Nestled beside tranquil vineyards and rolling hills, this countryside escape offers wine tasting tours, organic farm-to-table cuisine, and private jacuzzi villas.")
+                    .build();
+
+            Hotel hotel7 = Hotel.builder()
+                    .hotelName("Azure Mirage Resort")
+                    .location("Phoenix, AZ")
+                    .description("Experience futuristic comfort in our ultra-modern desert oasis with smart suites, rooftop infinity pools, live entertainment arenas, and stunning sunset dune views.")
+                    .build();
+
+            hotelRepository.saveAll(Arrays.asList(hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7));
             logger.info("Seeded hotels.");
         }
 
@@ -221,6 +239,71 @@ public class DataInitializer implements CommandLineRunner {
                     .price(BigDecimal.valueOf(899.99))
                     .availabilityStatus(true)
                     .amenities(allAmenities) // VIP Penthouse has all amenities
+                    .build());
+
+            // Seed Rooms for Celestial Crown Hotel (Hotel 4)
+            Hotel chicagoHotel = allHotels.get(4);
+            roomRepository.save(Room.builder()
+                    .hotel(chicagoHotel)
+                    .category(standardCat)
+                    .roomNumber("C-101")
+                    .price(BigDecimal.valueOf(159.99))
+                    .availabilityStatus(true)
+                    .amenities(Arrays.asList(allAmenities.get(0), allAmenities.get(3), allAmenities.get(8)))
+                    .build());
+            roomRepository.save(Room.builder()
+                    .hotel(chicagoHotel)
+                    .category(deluxeCat)
+                    .roomNumber("C-202")
+                    .price(BigDecimal.valueOf(239.99))
+                    .availabilityStatus(true)
+                    .amenities(Arrays.asList(allAmenities.get(0), allAmenities.get(3), allAmenities.get(4), allAmenities.get(8), allAmenities.get(9)))
+                    .build());
+            roomRepository.save(Room.builder()
+                    .hotel(chicagoHotel)
+                    .category(suiteCat)
+                    .roomNumber("C-303")
+                    .price(BigDecimal.valueOf(429.99))
+                    .availabilityStatus(true)
+                    .amenities(Arrays.asList(allAmenities.get(0), allAmenities.get(1), allAmenities.get(2), allAmenities.get(3), allAmenities.get(4), allAmenities.get(7), allAmenities.get(8), allAmenities.get(9)))
+                    .build());
+
+            // Seed Rooms for Silver Oak Vineyard Resort (Hotel 5)
+            Hotel napaHotel = allHotels.get(5);
+            roomRepository.save(Room.builder()
+                    .hotel(napaHotel)
+                    .category(deluxeCat)
+                    .roomNumber("SO-101")
+                    .price(BigDecimal.valueOf(299.99))
+                    .availabilityStatus(true)
+                    .amenities(Arrays.asList(allAmenities.get(0), allAmenities.get(2), allAmenities.get(4), allAmenities.get(7), allAmenities.get(9)))
+                    .build());
+            roomRepository.save(Room.builder()
+                    .hotel(napaHotel)
+                    .category(suiteCat)
+                    .roomNumber("SO-202")
+                    .price(BigDecimal.valueOf(549.99))
+                    .availabilityStatus(true)
+                    .amenities(Arrays.asList(allAmenities.get(0), allAmenities.get(2), allAmenities.get(3), allAmenities.get(4), allAmenities.get(7), allAmenities.get(8), allAmenities.get(9)))
+                    .build());
+
+            // Seed Rooms for Azure Mirage Resort (Hotel 6)
+            Hotel phoenixHotel = allHotels.get(6);
+            roomRepository.save(Room.builder()
+                    .hotel(phoenixHotel)
+                    .category(deluxeCat)
+                    .roomNumber("AM-101")
+                    .price(BigDecimal.valueOf(209.99))
+                    .availabilityStatus(true)
+                    .amenities(Arrays.asList(allAmenities.get(0), allAmenities.get(3), allAmenities.get(8), allAmenities.get(9)))
+                    .build());
+            roomRepository.save(Room.builder()
+                    .hotel(phoenixHotel)
+                    .category(penthouseCat)
+                    .roomNumber("AM-VIP")
+                    .price(BigDecimal.valueOf(999.99))
+                    .availabilityStatus(true)
+                    .amenities(allAmenities)
                     .build());
 
             logger.info("Seeded rooms matching amenities and categories.");

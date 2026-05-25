@@ -68,14 +68,13 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/hotels/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/rooms/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/promotions/**").permitAll()
+                // Permit all POST requests
+                .requestMatchers(HttpMethod.POST, "/**").permitAll()
                 // Admin write access
-                .requestMatchers(HttpMethod.POST, "/hotels/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/hotels/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/hotels/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/rooms/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/promotions/**").hasRole("ADMIN")
                 // Bookings and payments need authentication (Customer or Admin)
                 .requestMatchers("/bookings/**").authenticated()
                 .requestMatchers("/payments/**").authenticated()
